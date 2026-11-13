@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { profile } from '../../data/profile'
+import PixelCat from './PixelCat.jsx'
 import './fieldnotes.css'
 
 const TABS = [
   { id: 'about', label: 'About', color: '#e9c46a' },
   { id: 'experience', label: 'Experience', color: '#f4a261' },
+  { id: 'projects', label: 'Projects', color: '#d9a5b3' },
   { id: 'skills', label: 'Skills', color: '#a8c5a0' },
   { id: 'interests', label: 'Interests', color: '#9fb8d6' },
 ]
@@ -18,16 +20,21 @@ function About() {
           {p}
         </p>
       ))}
-      <div className="fn-now">
-        <span className="fn-now-label">Lately —</span>
-        <dl>
-          {Object.entries(profile.now).map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
+      <div className="fn-now-row">
+        <div className="fn-now">
+          <span className="fn-now-label">Lately —</span>
+          <dl>
+            {Object.entries(profile.now).map(([k, v]) => (
+              <div key={k}>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className="fn-cat-slot">
+          <PixelCat />
+        </div>
       </div>
     </>
   )
@@ -42,15 +49,20 @@ function Experience() {
           <li key={i} className="fn-entry" style={{ '--d': `${i * 70}ms` }}>
             <div className="fn-entry-date">
               {e.start}
-              <br />
-              <span>to {e.end}</span>
+              {e.end && (
+                <>
+                  <br />
+                  <span>to {e.end}</span>
+                </>
+              )}
             </div>
             <div className="fn-entry-body">
               <h3>
-                {e.role} <span className="fn-at">at</span> <em>{e.org}</em>
+                <span className="fn-org">{e.org}</span> <span className="fn-at">·</span>{' '}
+                <span className="fn-role">{e.role}</span>
               </h3>
-              <p className="fn-entry-meta">{e.location}</p>
-              <p className="fn-p">{e.summary}</p>
+              {e.location && <p className="fn-entry-meta">{e.location}</p>}
+              {e.summary && <p className="fn-p">{e.summary}</p>}
               <ul className="fn-bullets">
                 {e.highlights.map((h, j) => (
                   <li key={j}>{h}</li>
@@ -61,6 +73,11 @@ function Experience() {
                   <span key={t}>{t}</span>
                 ))}
               </div>
+              {e.link && (
+                <a className="fn-project-link" href={e.link.href} target="_blank" rel="noreferrer">
+                  {e.link.label} ↗
+                </a>
+              )}
               {e.note && <p className="fn-scribble">↳ {e.note}</p>}
             </div>
           </li>
@@ -70,28 +87,57 @@ function Experience() {
   )
 }
 
+function Projects() {
+  return (
+    <>
+      <h2 className="fn-h2">Projects</h2>
+      <div className="fn-projects">
+        {profile.projects.map((p, i) => (
+          <article key={p.title} className="fn-project" style={{ '--d': `${i * 70}ms` }}>
+            <div className="fn-project-head">
+              <h3>{p.title}</h3>
+              {p.date && <span className="fn-project-date">{p.date}</span>}
+            </div>
+            {p.description && <p className="fn-p">{p.description}</p>}
+            {p.highlights && (
+              <ul className="fn-bullets">
+                {p.highlights.map((h, j) => (
+                  <li key={j}>{h}</li>
+                ))}
+              </ul>
+            )}
+            <div className="fn-tags">
+              {p.tags.map((t) => (
+                <span key={t}>{t}</span>
+              ))}
+            </div>
+            {p.link && (
+              <a className="fn-project-link" href={p.link.href} target="_blank" rel="noreferrer">
+                {p.link.label} ↗
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </>
+  )
+}
+
 function Skills() {
   let n = 0
   return (
     <>
-      <h2 className="fn-h2">Index of Skills</h2>
-      <p className="fn-p fn-muted">Filled dots = how comfortable I am. Read it like the back of a book.</p>
+      <h2 className="fn-h2">Skills</h2>
       <div className="fn-index">
         {profile.skills.map((g) => (
-          <section key={g.group}>
+          <section key={g.group} className="fn-index-row">
             <h3 className="fn-index-group">{g.group}</h3>
-            <ul>
+            <ul className="fn-index-items">
               {g.items.map((s) => {
                 n += 1
                 return (
-                  <li key={s.name} style={{ '--d': `${n * 30}ms` }}>
-                    <span className="fn-index-name">{s.name}</span>
-                    <span className="fn-leader" aria-hidden="true" />
-                    <span className="fn-dots" aria-label={`${s.level} out of 5`}>
-                      {Array.from({ length: 5 }, (_, k) => (
-                        <i key={k} className={k < s.level ? 'on' : ''} />
-                      ))}
-                    </span>
+                  <li key={s} style={{ '--d': `${n * 25}ms` }}>
+                    {s}
                   </li>
                 )
               })}
@@ -111,11 +157,15 @@ function Interests() {
         {profile.interests.map((it, i) => (
           <figure key={it.title} className="fn-polaroid" style={{ '--r': `${((i * 37) % 7) - 3}deg`, '--d': `${i * 60}ms` }}>
             <div className="fn-polaroid-img">
-              <span>{it.emoji}</span>
+              {it.image ? (
+                <img src={it.image} alt={it.alt ?? it.title} loading="lazy" style={{ objectPosition: it.focus }} />
+              ) : (
+                <span>{it.emoji}</span>
+              )}
             </div>
             <figcaption>
               <strong>{it.title}</strong>
-              <span>{it.blurb}</span>
+              {it.blurb && <span>{it.blurb}</span>}
             </figcaption>
           </figure>
         ))}
@@ -124,7 +174,7 @@ function Interests() {
   )
 }
 
-const PANELS = { about: About, experience: Experience, skills: Skills, interests: Interests }
+const PANELS = { about: About, experience: Experience, projects: Projects, skills: Skills, interests: Interests }
 
 export default function FieldNotes() {
   const [tab, setTab] = useState('about')
@@ -139,14 +189,13 @@ export default function FieldNotes() {
           <br />
           <em>{profile.lastName}</em>
         </h1>
-        <p className="fn-tagline">{profile.tagline}</p>
         <p className="fn-meta">
           {profile.location} · {profile.school}
         </p>
         <ul className="fn-links">
           {profile.links.map((l) => (
             <li key={l.label}>
-              <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+              <a href={l.href} target={l.href.startsWith('http') || l.href.endsWith('.pdf') ? '_blank' : undefined} rel="noreferrer">
                 {l.label}
               </a>
             </li>

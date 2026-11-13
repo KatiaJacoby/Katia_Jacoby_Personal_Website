@@ -13,119 +13,178 @@ export const profile = {
   roles: ['builder', 'student', 'tinkerer', 'problem-solver', 'vibe coder'],
 
   bio: [
-    "Hi! I'm Katia. I like making things that are useful, a little bit delightful, and occasionally both at once.",
-    "Right now I'm studying at UC Berkeley and spending my free time building side projects, learning new tools, and asking too many questions. This paragraph is a placeholder, so tell me what you actually want it to say.",
+    "Hi! I'm Katia. Right now I'm studying computer science at UC Berkeley, but I'm originally from Ohio #notamemestate",
   ],
 
   now: {
-    building: 'this website',
-    reading: 'a book worth recommending',
-    listening: 'an album on repeat',
+    building: 'an AI agent with long-term memory for Google',
+    taking: 'Operating Systems, Networking, and Computer Graphics',
+    recovering: 'from a summer software engineering internship at Tesla',
   },
 
   links: [
-    { label: 'GitHub', href: 'https://github.com/' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-    { label: 'Email', href: 'mailto:hello@example.com' },
-    { label: 'Resume', href: '#' },
+    { label: 'GitHub', href: 'https://github.com/KatiaJacoby' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/katia-jacoby-520a10320/' },
+    { label: 'Email', href: 'mailto:katiajacoby@berkeley.edu' },
+    { label: 'Resume', href: '/Katia_Jacoby_Resume.pdf' },
   ],
 
   experience: [
     {
-      role: 'Software Engineering Intern',
-      org: 'Company Name',
-      start: 'Jun 2025',
-      end: 'Aug 2025',
-      location: 'San Francisco, CA',
-      summary: 'One-line description of the team and what you owned.',
-      highlights: [
-        'Shipped a feature that did a measurable thing (+X%)',
-        'Built an internal tool used by N people',
-      ],
-      tags: ['React', 'TypeScript', 'Postgres'],
-      note: 'favorite summer so far',
-    },
-    {
-      role: 'Research Assistant',
-      org: 'University Lab',
-      start: 'Jan 2025',
+      role: 'Contract Project Manager',
+      org: 'Google',
+      start: 'Fall 2026',
       end: 'Present',
-      location: 'Berkeley, CA',
-      summary: 'What the lab studies and what your piece of it is.',
       highlights: [
-        'Ran experiments / wrote analysis pipelines',
-        'Co-authored a paper or poster',
+        'Leading a 6-person team to improve long-term memory for AI agents, extending the open-source Hindsight system on AlloyDB to handle cross-session recall, changing facts, and memory-driven tool calls',
+        'Driving evaluation strategy by reproducing the Hindsight baseline, analyzing its failure modes, and benchmarking improvements on Mem2ActBench and LongMemEval for accuracy, latency, and token cost',
       ],
-      tags: ['Python', 'Data'],
-      note: 'learned to love ugly data',
+      tags: ['AI Agents', 'AlloyDB', 'Hindsight', 'LongMemEval', 'Mem2ActBench'],
+      link: { label: 'View on GitHub', href: 'https://github.com/HenryHamster/alloydb-agentic-tiered-memory' },
     },
     {
-      role: 'Officer / Project Lead',
-      org: 'Student Organization',
-      start: 'Aug 2024',
-      end: 'Present',
-      location: 'Berkeley, CA',
-      summary: 'Leadership role, club, or community you help run.',
+      role: 'Software Engineer Intern',
+      org: 'Tesla',
+      start: 'Summer 2026',
       highlights: [
-        'Led a team of N on a project for a real client',
-        'Organized events for 100+ students',
+        'Owned end-to-end architecture of a unified full-stack recruiting platform, merging two internal tools into one system and building interview scheduling, resume ranking, candidate filtering, and an AI assistant that parses recruiter emails to auto-schedule interviews, using Python/FastAPI, PostgreSQL, and Vue.js',
+        'Deployed and monitored the platform on Kubernetes, provisioned pods and scheduled cron jobs for automated data syncs, improving system reliability and reducing manual intervention',
       ],
-      tags: ['Leadership', 'Product'],
-      note: '',
+      tags: ['Python', 'FastAPI', 'PostgreSQL', 'Vue.js', 'Kubernetes'],
     },
     {
-      role: 'Earlier Role',
-      org: 'First Job / Volunteer Gig',
-      start: '2023',
-      end: '2024',
-      location: 'Hometown',
-      summary: 'Something you did before that shaped how you work.',
-      highlights: ['A thing you are proud of from this one'],
-      tags: ['Communication'],
-      note: 'where it all started',
+      role: 'Contract Software Engineer',
+      org: 'Google',
+      start: 'Fall 2025',
+      highlights: [
+        'Developed open-source tooling for the AlloyDB Omni Kubernetes Operator, enabling diagnostics, performance analysis, resilience testing, and fleet-wide health insights across customer-managed deployments',
+        'Built observability dashboards (Grafana, Prometheus, Kube-State-Metrics) to visualize cluster health, backup or restore workflows and operator features, allowing customers to monitor AlloyDB clusters in real time',
+      ],
+      tags: ['AlloyDB Omni', 'Kubernetes', 'Grafana', 'Prometheus', 'Kube-State-Metrics'],
+    },
+    {
+      role: 'Contract Software Engineer',
+      org: 'Amazon',
+      start: 'Spring 2025',
+      highlights: [
+        'Designed and implemented new DeltaCAT 2.0 features in Python with a team of engineers to enable the data lakehouse to become faster and more efficient for AI/ML-ready, industry-scale workflows',
+        'Engineered a multi-threaded data conversion flow to transform large-scale web datasets into Rivulet datasets, improving processing speeds by up to 300% over single-threaded performance',
+      ],
+      tags: ['Python', 'DeltaCAT', 'Rivulet', 'Multithreading'],
+    },
+    {
+      role: 'Contract Software Engineer',
+      org: 'Seacology',
+      start: 'Fall 2024',
+      highlights: [
+        'Built a full-stack app (React, Express.js, PostgreSQL) for researchers to organize field data and post updates, with a matching algorithm that cut volunteer allocation time by over 80% for 3,000+ users',
+      ],
+      tags: ['React', 'Express.js', 'PostgreSQL'],
+      link: { label: 'View on GitHub', href: 'https://github.com/brandonwu32/seacologywebsite' },
     },
   ],
 
-  // level: 1 (learning) → 5 (very comfortable)
+  projects: [
+    {
+      title: 'AlloyDB Agentic Tiered Memory',
+      description:
+        'Tiered long-term memory for AI agents: recent turns and rolling summaries live in Memorystore for Valkey, while durable facts and episodic memories live in AlloyDB and are retrieved with hybrid search. Built around Retain, Recall, and Reflect pipelines, with a LongMemEval harness for benchmarking.',
+      highlights: [
+        'On a LoCoMo benchmark conversation, answered 67.8% of questions correctly vs. 24.3% for the original codelab baseline, at less than half the cost per question',
+      ],
+      tags: ['Python', 'SQL', 'AlloyDB', 'Valkey', 'Vertex AI', 'Google ADK'],
+      link: { label: 'View on GitHub', href: 'https://github.com/HenryHamster/alloydb-agentic-tiered-memory' },
+    },
+    {
+      title: 'AlloyDB Omni Observability Stack',
+      description:
+        'A Helm chart that deploys an end-to-end monitoring stack for AlloyDB Omni on Kubernetes, bundling Prometheus, Loki, and the OpenTelemetry Collector with Grafana dashboards for database- and container-level metrics, alerting rules, and a ServiceMonitor. Merged into Google Cloud\'s official alloydb-omni-samples repo.',
+      tags: ['Kubernetes', 'Helm', 'Prometheus', 'Grafana', 'Loki', 'OpenTelemetry'],
+      link: {
+        label: 'View commit',
+        href: 'https://github.com/GoogleCloudPlatform/alloydb-omni-samples/commit/106f812ee138cd8a1217c6151c66ec1f4179c648',
+      },
+    },
+    {
+      title: 'Pintos OS Kernel Debugging',
+      date: 'Aug 2026',
+      highlights: [
+        'Debugged the Pintos kernel (C) using GDB and Bochs, tracing thread control blocks and interrupt frames across context switches to isolate and fix a kernel-level bug',
+        'Implemented a working system call in Pintos by tracing the user-to-kernel call path through intr frame and the x86 stack calling convention',
+      ],
+      tags: ['C', 'x86', 'GDB', 'Bochs'],
+    },
+    {
+      title: 'Machine Learning & Neural Networks Agent',
+      date: 'Apr 2026',
+      highlights: [
+        'Implemented PyTorch models spanning digit classification (MNIST, 97%), RNN-based language identification (81%), CNNs, and scaled dot-product attention, culminating in a character-level GPT transformer trained on Shakespeare',
+      ],
+      tags: ['Python', 'PyTorch'],
+    },
+  ],
+
   skills: [
     {
       group: 'Languages',
-      items: [
-        { name: 'JavaScript', level: 4 },
-        { name: 'Python', level: 4 },
-        { name: 'Java', level: 3 },
-        { name: 'SQL', level: 3 },
-        { name: 'HTML / CSS', level: 5 },
-      ],
+      items: ['Python', 'Java', 'JavaScript', 'TypeScript', 'C', 'C++', 'SQL', 'HTML/CSS', 'RISC-V & x86 Assembly'],
     },
     {
-      group: 'Frameworks & Tools',
-      items: [
-        { name: 'React', level: 4 },
-        { name: 'Node.js', level: 3 },
-        { name: 'Git', level: 4 },
-        { name: 'Figma', level: 3 },
-        { name: 'Vercel', level: 2 },
-      ],
+      group: 'Frameworks & Libraries',
+      items: ['React', 'Vue.js', 'Express.js', 'FastAPI', 'PyTorch'],
     },
     {
-      group: 'Other',
-      items: [
-        { name: 'Data Analysis', level: 3 },
-        { name: 'Public Speaking', level: 4 },
-        { name: 'Product Thinking', level: 3 },
-        { name: 'Spanish', level: 2 },
-      ],
+      group: 'Databases & Infrastructure',
+      items: ['PostgreSQL', 'AlloyDB', 'Kubernetes', 'Helm', 'Docker', 'Airflow', 'Jenkins'],
+    },
+    {
+      group: 'Monitoring & Tools',
+      items: ['Prometheus', 'Grafana', 'Jira', 'Loki', 'Splunk', 'DataGrip', 'Git'],
     },
   ],
 
   interests: [
-    { emoji: '☕️', title: 'Coffee runs', blurb: 'Ranking every café within walking distance.' },
-    { emoji: '🏃‍♀️', title: 'Running', blurb: 'Slow miles, good playlists.' },
-    { emoji: '📚', title: 'Reading', blurb: 'Fiction on weekends, non-fiction on planes.' },
-    { emoji: '🎨', title: 'Making things', blurb: 'Sketching, crafting, and other hands-on projects.' },
-    { emoji: '✈️', title: 'Travel', blurb: 'Collecting cities and street food.' },
-    { emoji: '🎧', title: 'Music', blurb: 'Always taking recommendations.' },
+    // image: file in /public; focus: which part of the photo to keep when cropped square
+    {
+      title: 'Piano',
+      blurb: '',
+      emoji: '🎹',
+      image: '/interests/piano.jpg',
+      alt: 'Katia performing on a grand piano on stage',
+      focus: '38% 50%',
+    },
+    {
+      title: 'Tennis',
+      blurb: '',
+      emoji: '🎾',
+      image: '/interests/tennis.jpg',
+      alt: 'A tennis racket and ball on a blue court between two pairs of sneakers',
+      focus: '50% 55%',
+    },
+    {
+      title: 'Guitar',
+      blurb: '',
+      emoji: '🎸',
+      image: '/interests/guitar.jpg',
+      alt: 'Katia playing an electric guitar in her room',
+      focus: '50% 60%',
+    },
+    {
+      title: 'Backpacking',
+      blurb: '',
+      emoji: '🎒',
+      image: '/interests/backpacking.jpg',
+      alt: 'Katia and a friend reading a trail map on a granite overlook in Yosemite',
+      focus: '50% 100%',
+    },
+    {
+      title: 'My cat',
+      blurb: '',
+      emoji: '🐈',
+      image: '/interests/cat.jpg',
+      alt: 'A fluffy tabby and white cat lying belly-up on a bed',
+      focus: '100% 50%',
+    },
   ],
 }
 

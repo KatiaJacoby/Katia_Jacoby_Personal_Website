@@ -168,7 +168,8 @@
   max-height: calc(100vh - 180px);
   min-height: 520px;
   overflow-y: auto;
-  padding: clamp(28px, 4vw, 56px);
+  --fn-paper-pad: clamp(28px, 4vw, 56px);
+  padding: var(--fn-paper-pad);
   background-image: repeating-linear-gradient(
     to bottom,
     transparent 0,
@@ -208,6 +209,7 @@
   line-height: 1.5;
   margin: 0 0 18px;
   max-width: 62ch;
+  display: flow-root; /* keep the drop cap from spilling into the next paragraph */
 }
 
 .fn-lede::first-letter {
@@ -229,12 +231,123 @@
   color: var(--ink-soft);
 }
 
-.fn-now {
+.fn-now-row {
   margin-top: 36px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 16px;
+}
+
+/* fills the space from the Lately card to the about card's right edge
+   (through the paper's padding), so the cat sits centered in that gap */
+.fn-cat-slot {
+  flex: 1 0 120px;
+  display: flex;
+  justify-content: center;
+  margin-right: calc(-1 * var(--fn-paper-pad, 0px));
+}
+
+.fn-now {
   padding: 20px 24px;
   border: 1.5px dashed rgba(43, 38, 32, 0.25);
   border-radius: 10px;
-  max-width: 520px;
+  width: fit-content; /* grow to fit the longest line */
+  max-width: 100%;
+}
+
+/* ── Pixel cat ── */
+.fn-cat {
+  width: 96px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.fn-cat-dancer {
+  animation: fn-cat-bop 0.8s steps(1) infinite;
+}
+
+.fn-cat:hover .fn-cat-dancer {
+  animation-duration: 0.4s;
+}
+
+@keyframes fn-cat-bop {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-1px, -1px);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+  75% {
+    transform: translate(1px, -1px);
+  }
+}
+
+.fn-cat-shadow {
+  opacity: 0.12;
+}
+
+.fn-cat-tail {
+  animation: fn-cat-frame 0.8s steps(1) infinite;
+}
+
+.fn-cat-tail-b {
+  animation-delay: -0.4s;
+}
+
+@keyframes fn-cat-frame {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.fn-cat-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fn-cat-blink 4s steps(1) infinite;
+}
+
+@keyframes fn-cat-blink {
+  0%,
+  90%,
+  96% {
+    transform: scaleY(1);
+  }
+  91% {
+    transform: scaleY(0.5);
+  }
+}
+
+.fn-cat-note {
+  opacity: 0;
+  animation: fn-cat-note 2.4s steps(6) infinite;
+}
+
+.fn-cat-note-2 {
+  animation-delay: 1.2s;
+}
+
+@keyframes fn-cat-note {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2px);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(1px, -4px);
+  }
 }
 
 .fn-now-label {
@@ -254,7 +367,8 @@
 }
 
 .fn-now dt {
-  width: 90px;
+  width: 112px;
+  flex-shrink: 0;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -309,8 +423,12 @@
   margin: 0 0 4px;
 }
 
-.fn-entry h3 em {
-  font-weight: 300;
+.fn-entry h3 .fn-org {
+  font-weight: 700;
+}
+
+.fn-entry h3 .fn-role {
+  font-weight: 400;
 }
 
 .fn-at {
@@ -357,15 +475,76 @@
   transform-origin: left;
 }
 
-/* Skills index */
-.fn-index {
-  columns: 2 280px;
-  column-gap: 48px;
+/* Projects */
+.fn-projects {
+  display: flex;
+  flex-direction: column;
 }
 
-.fn-index section {
-  break-inside: avoid;
-  margin-bottom: 28px;
+.fn-project {
+  padding: 24px 0;
+  border-top: 2px dotted rgba(43, 38, 32, 0.25);
+  animation: fn-in 0.4s ease both;
+  animation-delay: var(--d);
+}
+
+.fn-project:first-child {
+  border-top: none;
+  padding-top: 4px;
+}
+
+.fn-project-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-bottom: 6px;
+}
+
+.fn-project h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 22px;
+  margin: 0;
+}
+
+.fn-project-date {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.fn-project-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fn-project-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Skills index */
+.fn-index {
+  display: flex;
+  flex-direction: column;
+}
+
+.fn-index-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-top: 2px dotted rgba(43, 38, 32, 0.25);
+}
+
+.fn-index-row:last-child {
+  border-bottom: 2px dotted rgba(43, 38, 32, 0.25);
 }
 
 .fn-index-group {
@@ -373,47 +552,35 @@
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
+  line-height: 1.4;
   color: var(--accent);
-  margin: 0 0 8px;
-}
-
-.fn-index ul {
-  list-style: none;
-  padding: 0;
   margin: 0;
 }
 
-.fn-index li {
+.fn-index-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  align-items: baseline;
+  flex-wrap: wrap;
   gap: 8px;
-  padding: 6px 0;
+}
+
+.fn-index-items li {
   font-family: 'Fraunces', serif;
-  font-size: 18px;
+  font-size: 17px;
+  padding: 4px 14px;
+  border: 1.5px solid rgba(43, 38, 32, 0.6);
+  border-radius: 999px;
   animation: fn-in 0.4s ease both;
   animation-delay: var(--d);
 }
 
-.fn-leader {
-  flex: 1;
-  border-bottom: 2px dotted rgba(43, 38, 32, 0.3);
-  transform: translateY(-4px);
-}
-
-.fn-dots {
-  display: inline-flex;
-  gap: 3px;
-}
-
-.fn-dots i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid var(--ink);
-}
-
-.fn-dots i.on {
-  background: var(--ink);
+@media (max-width: 600px) {
+  .fn-index-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /* Interests polaroids */
@@ -458,6 +625,18 @@
   display: grid;
   place-items: center;
   font-size: 64px;
+  overflow: hidden;
+  position: relative;
+}
+
+.fn-polaroid-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* a touch of warmth so photos sit in the paper palette */
+  filter: saturate(0.92) sepia(0.06);
 }
 
 .fn-polaroid figcaption {
