@@ -24,10 +24,13 @@ function About() {
         <div className="fn-now">
           <span className="fn-now-label">Lately —</span>
           <dl>
-            {Object.entries(profile.now).map(([k, v]) => (
-              <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
+            {profile.now.map((n) => (
+              <div key={n.label}>
+                <dt>{n.label}</dt>
+                <dd>
+                  {n.text}
+                  {n.org && ` ${n.org}`}
+                </dd>
               </div>
             ))}
           </dl>
@@ -176,6 +179,36 @@ function Interests() {
 
 const PANELS = { about: About, experience: Experience, projects: Projects, skills: Skills, interests: Interests }
 
+function Community() {
+  const { photo, orgs } = profile.community
+  return (
+    <section className="fn-community" aria-labelledby="fn-community-title">
+      <p className="fn-kicker">↓ outside the classroom</p>
+      <h2 id="fn-community-title" className="fn-h2">Community</h2>
+      <figure className="fn-photo">
+        <img src={photo.src} alt={photo.alt} loading="lazy" />
+        <figcaption>{photo.caption}</figcaption>
+      </figure>
+      <div className="fn-clubs">
+        {orgs.map((o) => (
+          <article key={o.name} className="fn-club">
+            <h3>{o.name}</h3>
+            <ul className="fn-club-roles">
+              {o.roles.map((r) => (
+                <li key={r}>{r}</li>
+              ))}
+            </ul>
+            <p className="fn-p">{o.description}</p>
+            <a className="fn-project-link" href={o.link.href} target="_blank" rel="noreferrer">
+              {o.link.label} ↗
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export default function FieldNotes() {
   const [tab, setTab] = useState('about')
   const Panel = PANELS[tab]
@@ -192,32 +225,50 @@ export default function FieldNotes() {
         <p className="fn-meta">
           {profile.location} · {profile.school}
         </p>
-        <ul className="fn-links">
-          {profile.links.map((l) => (
-            <li key={l.label}>
-              <a href={l.href} target={l.href.startsWith('http') || l.href.endsWith('.pdf') ? '_blank' : undefined} rel="noreferrer">
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p className="fn-hint">pick a tab, any tab →</p>
+        {profile.workedWith?.length > 0 && (
+          <div className="fn-worked">
+            <p className="fn-worked-label">worked with</p>
+            <ul className="fn-worked-list">
+              {profile.workedWith.map((c) => (
+                <li key={c}>
+                  <strong className="fn-pop">{c}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </header>
 
       <main className="fn-folder">
-        <div className="fn-tabs" role="tablist">
-          {TABS.map((t, i) => (
-            <button
-              key={t.id}
-              role="tab"
-              aria-selected={tab === t.id}
-              className={`fn-tab ${tab === t.id ? 'is-active' : ''}`}
-              style={{ '--c': t.color, '--i': i }}
-              onClick={() => setTab(t.id)}
-            >
-              {t.label}
-            </button>
-          ))}
+        <div className="fn-tabbar">
+          <div className="fn-tabs" role="tablist">
+            {TABS.map((t, i) => (
+              <button
+                key={t.id}
+                role="tab"
+                aria-selected={tab === t.id}
+                className={`fn-tab ${tab === t.id ? 'is-active' : ''}`}
+                style={{ '--c': t.color, '--i': i }}
+                onClick={() => setTab(t.id)}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+          <nav aria-label="Links">
+            <ul className="fn-links fn-toplinks">
+              {profile.links.map((l) => {
+                const external = l.href.startsWith('http') || l.href.endsWith('.pdf')
+                return (
+                  <li key={l.label}>
+                    <a href={l.href} target={external ? '_blank' : undefined} rel="noreferrer">
+                      {l.label}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
         </div>
         <div className="fn-paper" role="tabpanel">
           <div className="fn-paper-scroll" key={tab}>
@@ -225,6 +276,8 @@ export default function FieldNotes() {
           </div>
         </div>
       </main>
+
+      <Community />
     </div>
   )
 }

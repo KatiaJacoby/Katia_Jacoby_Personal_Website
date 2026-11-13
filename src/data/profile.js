@@ -10,17 +10,21 @@ export const profile = {
   tagline: 'Builder, student, and professionally curious person.',
   location: 'Berkeley, CA',
   school: 'UC Berkeley',
+  // shown in the header under your links
+  workedWith: ['Tesla', 'Google', 'Amazon'],
   roles: ['builder', 'student', 'tinkerer', 'problem-solver', 'vibe coder'],
 
   bio: [
     "Hi! I'm Katia. Right now I'm studying computer science at UC Berkeley, but I'm originally from Ohio #notamemestate",
   ],
 
-  now: {
-    building: 'an AI agent with long-term memory for Google',
-    taking: 'Operating Systems, Networking, and Computer Graphics',
-    recovering: 'from a summer software engineering internship at Tesla',
-  },
+  // `org` is appended to the end of the line
+  now: [
+    { label: 'drawn to', text: 'backend & full-stack, with deep infra experience' },
+    { label: 'building', text: 'an AI agent with long-term memory for', org: 'Google' },
+    { label: 'taking', text: 'Operating Systems, Networking, and Computer Graphics' },
+    { label: 'recovering', text: 'from a summer software engineering internship at', org: 'Tesla' },
+  ],
 
   links: [
     { label: 'GitHub', href: 'https://github.com/KatiaJacoby' },
@@ -34,7 +38,6 @@ export const profile = {
       role: 'Contract Project Manager',
       org: 'Google',
       start: 'Fall 2026',
-      end: 'Present',
       highlights: [
         'Leading a 6-person team to improve long-term memory for AI agents, extending the open-source Hindsight system on AlloyDB to handle cross-session recall, changing facts, and memory-driven tool calls',
         'Driving evaluation strategy by reproducing the Hindsight baseline, analyzing its failure modes, and benchmarking improvements on Mem2ActBench and LongMemEval for accuracy, latency, and token cost',
@@ -124,6 +127,26 @@ export const profile = {
     },
   ],
 
+  community: {
+    photo: { src: '/images/codebase.jpg', alt: 'Codebase members posing together on the steps of a building on the UC Berkeley campus', caption: 'codebase' },
+    orgs: [
+      {
+        name: 'Codebase',
+        roles: ['Software Developer', 'Project Manager', 'Internal Vice President'],
+        description:
+          'A UC Berkeley student organization that builds software for tech companies and nonprofits, helping students break into the industry through real client projects.',
+        link: { label: 'codebase.studentorg.berkeley.edu', href: 'https://codebase.studentorg.berkeley.edu/' },
+      },
+      {
+        name: 'CS Kickstart',
+        roles: ['Teaching Assistant'],
+        description:
+          'A free, student-run summer program at Berkeley that introduces incoming women and nonbinary freshmen to computer science, working to close the gender gap in tech.',
+        link: { label: 'cskickstart.com', href: 'https://www.cskickstart.com/' },
+      },
+    ],
+  },
+
   skills: [
     {
       group: 'Languages',
@@ -184,6 +207,14 @@ export const profile = {
       image: '/interests/cat.jpg',
       alt: 'A fluffy tabby and white cat lying belly-up on a bed',
       focus: '100% 50%',
+    },
+    {
+      title: 'My family',
+      blurb: '',
+      emoji: '📖',
+      image: '/interests/family.jpg',
+      alt: 'Katia and her two brothers gathered around their dad as he reads a picture book at bedtime',
+      focus: '60% 50%',
     },
   ],
 }
