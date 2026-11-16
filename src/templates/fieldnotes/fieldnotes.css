@@ -23,15 +23,6 @@
   align-self: start;
 }
 
-.fn-kicker {
-  font-family: 'Caveat', cursive;
-  font-size: 26px;
-  color: var(--accent);
-  margin: 0 0 4px;
-  transform: rotate(-3deg);
-  transform-origin: left;
-}
-
 .fn-name {
   font-family: 'Fraunces', serif;
   font-weight: 600;
@@ -727,10 +718,6 @@
   grid-column: 2;
   min-width: 0;
   padding-top: 28px;
-}
-
-.fn-community .fn-kicker {
-  margin-bottom: 0;
 }
 
 .fn-photo {

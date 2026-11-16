@@ -183,7 +183,6 @@ function Community() {
   const { photo, orgs } = profile.community
   return (
     <section className="fn-community" aria-labelledby="fn-community-title">
-      <p className="fn-kicker">↓ outside the classroom</p>
       <h2 id="fn-community-title" className="fn-h2">Community</h2>
       <figure className="fn-photo">
         <img src={photo.src} alt={photo.alt} loading="lazy" />
@@ -216,7 +215,6 @@ export default function FieldNotes() {
   return (
     <div className="fn">
       <header className="fn-header">
-        <p className="fn-kicker">Field notes on</p>
         <h1 className="fn-name">
           {profile.firstName}
           <br />
