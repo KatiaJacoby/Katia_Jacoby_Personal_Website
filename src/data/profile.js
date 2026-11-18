@@ -15,7 +15,7 @@ export const profile = {
   roles: ['builder', 'student', 'tinkerer', 'problem-solver', 'vibe coder'],
 
   bio: [
-    "Hi! I'm Katia. Right now I'm studying computer science at UC Berkeley, but I'm originally from Ohio #notamemestate",
+    "Hi! I'm Katia. Right now I'm studying computer science at UC Berkeley, but I'm originally from Ohio. I build backend and infrastructure systems, most recently at Tesla and Google, and I'm looking for software engineering internships for Summer 2027.",
   ],
 
   // `org` is appended to the end of the line
@@ -23,7 +23,7 @@ export const profile = {
     { label: 'drawn to', text: 'backend & full-stack, with deep infra experience' },
     { label: 'building', text: 'an AI agent with long-term memory for', org: 'Google' },
     { label: 'taking', text: 'Operating Systems, Networking, and Computer Graphics' },
-    { label: 'recovering', text: 'from a summer software engineering internship at', org: 'Tesla' },
+    { label: 'finished', text: 'a summer software engineering internship at', org: 'Tesla' },
   ],
 
   links: [
